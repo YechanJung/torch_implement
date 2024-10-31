@@ -237,7 +237,7 @@ class Transformer(nn.Module):
 
         enc_mask = (src == pad_idx).unsqueeze(1).unsqueeze(2) 
         enc_mask = enc_mask.expand(src.shape[0], self.n_heads, src.shape[1], src.shape[1]) 
-        """ src pad mask (문장 마다 다르게 생김. 이건 한 문장에 대한 pad 행렬)
+        """ src pad mask 
         F F T T
         F F T T
         F F T T
