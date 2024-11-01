@@ -19,7 +19,7 @@
 
 #### Finetuning
 
-- 데이터셋: https://github.com/tatsu-lab/alpaca_farm +
+- 데이터셋: https://huggingface.co/datasets/yahma/alpaca-cleaned
 - 모델: GPT2_en.py
 - 학습 방법: LoRA + DPO
 
