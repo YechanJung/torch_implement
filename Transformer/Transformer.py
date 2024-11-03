@@ -13,11 +13,13 @@ Device = torch.device('mps' if torch.backends.mps.is_available() else 'cpu')
 
 # Tokenizer
 tokenizer = MarianTokenizer.from_pretrained('Helsinki-NLP/opus-mt-ko-en')
-model = MarianMTModel.from_pretrained('Helsinki-NLP/opus-mt-ko-en')
+
 
 eos_idx = tokenizer.eos_token_id
 pad_idx = tokenizer.pad_token_id
 vocab_size = tokenizer.vocab_size
+
+
 # Hyperparameters
 BATCH_SIZE =64
 LAMDA = 0
@@ -28,8 +30,9 @@ d_ff = 512
 n_heads = 8
 drop_p = 0.1
 max_len = 100
-
 warmup_steps = 1000
+
+
 # Data
 data = pd.read_excel('대화체.xlsx')
 class CustomDataset(torch.utils.data.Dataset):
