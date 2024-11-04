@@ -138,12 +138,37 @@ class DecoderLayer(nn.Module):
 
         return x, atten_dec
 
+class PositionalEncoder(nn.Module):
+
+    def __init__(self, d_model, dout_p, seq_len=3660):
+        super(PositionalEncoder, self).__init__()
+        self.d_model = d_model
+        self.dropout = nn.Dropout(dout_p)
+
+        pos_enc_mat = np.zeros((seq_len, d_model))
+        odds = np.arange(0, d_model, 2)
+        evens = np.arange(1, d_model, 2)
+
+        for pos in range(seq_len):
+            pos_enc_mat[pos, odds] = np.sin(pos / (10000 ** (odds / d_model)))
+            pos_enc_mat[pos, evens] = np.cos(pos / (10000 ** (evens / d_model)))
+
+        self.pos_enc_mat = torch.from_numpy(pos_enc_mat).unsqueeze(0)
+
+    def forward(self, x):
+        B, S, d_model = x.shape
+        
+        x = x + self.pos_enc_mat[:, :S, :].type_as(x)
+        x = self.dropout(x)
+        
+        return x
 class Decoder(nn.Module):
     def __init__(self, vocab_size, max_len, n_layers, d_model, d_ff, n_heads, drop_p):
         super().__init__()
 
         self.input_embedding = nn.Embedding(vocab_size, d_model)
-        self.pos_embedding = nn.Embedding(max_len, d_model)
+        # self.pos_embedding = nn.Embedding(max_len, d_model)
+        self.pos_encoding = PositionalEncoder(d_model, drop_p, max_len)
 
         self.dropout = nn.Dropout(drop_p)
 
@@ -154,9 +179,10 @@ class Decoder(nn.Module):
 
     def forward(self, x, dec_mask, atten_map_save = False):
 
-        pos = torch.arange(x.shape[1]).expand_as(x).to(device)
+        # pos = torch.arange(x.shape[1]).expand_as(x).to(device)
 
-        x = self.input_embedding(x) + self.pos_embedding(pos)
+        # x = self.input_embedding(x) + self.pos_embedding(pos)
+        x = self.input_embedding(x) + self.pos_encoding(x)
         x = self.dropout(x)
 
         atten_decs = torch.tensor([]).to(device)
