@@ -7,7 +7,7 @@ from einops import rearrange
 from torch.nn.utils.rnn import pad_sequence
 import matplotlib.pyplot as plt
 from transformers import MarianTokenizer
-
+import os
 
 device = "mps" if torch.backends.mps.is_available() else "cpu"
 
@@ -206,3 +206,7 @@ class GPT(nn.Module):
         return out, atten_decs
     
 model = GPT(vocab_size, max_len, n_layers, d_model, d_ff, n_heads, drop_p).to(device)
+from huggingface import trainer, login
+
+login( hf_token = os.getenv('HF_TOKEN'))
+trainer.train(model, train_DL, val_DL, save_model_path, save_history_path, EPOCH, criterion, LR_peak, total_steps, lr_lambda)
