@@ -7,7 +7,7 @@ import math, random
 from einops import rearrange
 from torch.nn.utils.rnn import pad_sequence
 import matplotlib.pyplot as plt
-
+import numpy as np
 device = "mps" if torch.backends.mps.is_available() else "cpu"
 
 # Tokenizer
