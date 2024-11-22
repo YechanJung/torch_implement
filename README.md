@@ -14,15 +14,7 @@
 - 한국어 데이터 기반 모델 학습
 - 데이터셋: https://aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&aihubDataSe=realm&dataSetSn=126
 
-### GPT2_en.py + Finetuning
-
-- 영어 next token prediction 모델 학습 (Alphaca finetuning을 위해 영어 데이터셋 사용)
-- 데이터셋: https://aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&aihubDataSe=realm&dataSetSn=126
-
-#### Finetuning
-
-- 데이터셋: https://huggingface.co/datasets/yahma/alpaca-cleaned
-- 학습 방법: LoRA + DPO (억LoRA 맞습니다.)
+- pos embedding,  RoPE각각 구현
 
 ## BERT
 
@@ -37,15 +29,10 @@
 
 ## Swin Transformer
 
-- Swin Transformer
-- 데이터셋: CIFAR10
-
 ## ConvNeXt
 
 - ConvNeXt
 - 데이터셋: CIFAR10
-
-## CLIP
 
 ## Mamba
 
