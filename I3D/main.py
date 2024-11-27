@@ -25,6 +25,7 @@ class MaxPool3dSamePadding(nn.MaxPool3d):
         out_t = np.ceil(float(t) / float(self.stride[0]))
         out_h = np.ceil(float(h) / float(self.stride[1]))
         out_w = np.ceil(float(w) / float(self.stride[2]))
+        out_w = np.ceil(float(w) / float(self.stride[2]))
         #print out_t, out_h, out_w
         pad_t = self.compute_pad(0, t)
         pad_h = self.compute_pad(1, h)
